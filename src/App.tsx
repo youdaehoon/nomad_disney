@@ -27,6 +27,10 @@ const Sidebar = styled.aside`
       display: none;
     }
   }
+
+  @media (max-width: 748px) {
+    display: none;
+  }
 `;
 const Logo = styled.h1`
   font-size: 29px;
@@ -44,7 +48,7 @@ const LogoM = styled.div`
   width: 29px;
   position: absolute;
   top: 25px;
-  left: calc(50% - 14.5px);
+  left: 20px;
   opacity: 0;
   transform: scale(0);
   transition: transform opacity 1s ease;
@@ -97,6 +101,10 @@ const OutletContainer = styled.section`
   display: flex;
   justify-content: center;
   overflow-y: scroll;
+
+  @media (max-width: 365px) {
+    width: 365px;
+  }
 `;
 function App() {
   const match = useMatch("/");

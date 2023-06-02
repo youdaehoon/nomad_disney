@@ -7,6 +7,11 @@ const Container = styled.div`
   padding: 30px 20px 0px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 1264px) {
+    width: 100%;
+  }
 `;
 
 const UserInfo = styled.section`
@@ -21,11 +26,21 @@ const UserProfileImgWrap = styled.div`
     height: 145px;
     object-fit: cover;
     border-radius: 75px;
+
+    @media (max-width: 748px) {
+      width: 77px;
+      height: 77px;
+    }
+  }
+
+  @media (max-width: 748px) {
+    padding: 0;
   }
 `;
 const RoundEffectImg = styled.div`
   width: 150px;
   height: 150px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +56,11 @@ const RoundEffectImg = styled.div`
       transparent 82%
     ),
     linear-gradient(135deg, #234bd7 12%, #c33cbe 58%);
+
+  @media (max-width: 748px) {
+    width: 79px;
+    height: 79px;
+  }
 `;
 const Icon = styled.div`
   width: 18px;
@@ -84,6 +104,10 @@ const FeedSummary = styled.div`
   & > span:nth-child(2) {
     white-space: pre;
   }
+
+  @media (max-width: 748px) {
+    display: none;
+  }
 `;
 
 const Feeds = styled.section`
@@ -91,6 +115,7 @@ const Feeds = styled.section`
   flex-wrap: wrap;
   margin-top: 44px;
   gap: 4px;
+  width: 100%;
 `;
 
 const Feed = styled.article`
