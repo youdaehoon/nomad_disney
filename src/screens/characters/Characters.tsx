@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { logo } from "../../assets";
 
+import {useQuery} from"@tanstack/react-query"
+import { fetchCharacters } from "../../api";
+import Feed from "../../components/Feed";
+import { Outlet } from "react-router-dom";
+
 const Container = styled.div`
   width: 975px;
   padding: 30px 20px 0px;
@@ -60,6 +65,7 @@ const RoundEffectImg = styled.div`
   @media (max-width: 748px) {
     width: 79px;
     height: 79px;
+    
   }
 `;
 const Icon = styled.div`
@@ -118,74 +124,19 @@ const Feeds = styled.section`
   width: 100%;
 `;
 
-const Feed = styled.article`
-  width: 33%;
-  height: 0;
-  padding-bottom: 33%;
-  position: relative; /* 포지셔닝을 위해 relative를 설정합니다. */
 
-  & > img {
-    position: absolute; /* 포지셔닝을 위해 relative를 설정합니다. */
-
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const datas = [
-  {
-    id: 14,
-    name: "A.J. Arno",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/2/2c/A.J._Arno.jpg",
-  },
-  {
-    id: 16,
-    name: "Abdullah",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/c/cb/1087603-44532-clp-950.jpg",
-  },
-  {
-    id: 18,
-    name: "Abigail the Cow",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/0/05/Fox-disneyscreencaps_com-901.jpg",
-  },
-  {
-    id: 21,
-    name: "Abis Mal's Thugs",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/b/ba/Abis_Mal%27s_Thugs.jpg",
-  },
-  {
-    id: 24,
-    name: "Absolem",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/4/4d/Caterpillar.jpg",
-  },
-  {
-    id: 25,
-    name: "Abu",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/3/3f/Profile_-_Abu.png",
-  },
-  {
-    id: 30,
-    name: "Ace",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/1/1e/Profile_-_Ace.png",
-  },
-  {
-    id: 31,
-    name: "Achilles",
-    imageUrl:
-      "https://static.wikia.nocookie.net/disney/images/8/8f/Achilles_HOND.jpg",
-  },
-];
+interface Character{
+  id:number,
+  name:string,
+  imageUrl:string
+}
 
 const Characters = () => {
+
+  const {data:datas,isLoading} =useQuery<Character[]>(["characters"],fetchCharacters)
   return (
-    <Container>
+    <>
+     <Container>
       <UserInfo>
         <UserProfileImgWrap>
           <RoundEffectImg>
@@ -218,13 +169,14 @@ const Characters = () => {
         </RightSection>
       </UserInfo>
       <Feeds>
-        {datas.map((data) => (
-          <Feed key={data.id}>
-            <img src={data.imageUrl} />
-          </Feed>
-        ))}
+        {datas?.slice(0,100).map((data) => (
+<Feed key={data.id} id={data.id} imageUrl={data.imageUrl} name={data.name}/>        ))}
       </Feeds>
+      
     </Container>
+    <Outlet/>
+    </>
+   
   );
 };
 
